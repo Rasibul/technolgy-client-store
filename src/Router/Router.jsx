@@ -13,7 +13,8 @@ const routes = createBrowserRouter([
         children:[
             {
                 path:'/home',
-                element:<Home></Home>
+                element:<Home></Home>,
+                loader:() => fetch('/brand.json')
             },
             {
                 path: '/addProduct',
@@ -28,7 +29,7 @@ const routes = createBrowserRouter([
                 element:<Login></Login>
             },
             {
-                path:'/registation',
+                path:'/register',
                 element:<Registation></Registation>
             }
         ]
