@@ -5,32 +5,35 @@ import AddProduct from "../Pages/AddProduct/AddProduct";
 import MyCart from "../Pages/MyCart/MyCart";
 import Login from "../Pages/Login/Login";
 import Registation from "../Pages/Registation/Registation";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const routes = createBrowserRouter([
     {
-        path:'/',
-        element:<MainLayOut></MainLayOut>,
-        children:[
+        path: '/',
+        element: <MainLayOut></MainLayOut>,
+        children: [
             {
-                path:'/home',
-                element:<Home></Home>,
-                loader:() => fetch('/brand.json')
+                path: '/home',
+                element: <Home></Home>,
+                loader: () => fetch('/brand.json')
             },
             {
                 path: '/addProduct',
-                element:<AddProduct></AddProduct>
+                element: <PrivateRoute>
+                    <AddProduct></AddProduct>
+                </PrivateRoute>
             },
             {
                 path: '/myCart',
-                element:<MyCart></MyCart>
+                element: <MyCart></MyCart>
             },
             {
-                path:'/login',
-                element:<Login></Login>
+                path: '/login',
+                element: <Login></Login>
             },
             {
-                path:'/register',
-                element:<Registation></Registation>
+                path: '/register',
+                element: <Registation></Registation>
             }
         ]
     }
