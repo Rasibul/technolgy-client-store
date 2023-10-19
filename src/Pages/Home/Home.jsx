@@ -2,6 +2,7 @@ import { useLoaderData } from "react-router-dom";
 import Banner from "../../Header/Banner/Banner";
 import BrandCart from "../../Components/BrandCart/BrandCart";
 import ContactUs from "../../Components/ContactUs/ContactUs";
+import MemberShip from "../../Components/MemberShipCard/MemberShip";
 
 
 const Home = () => {
@@ -15,6 +16,7 @@ const Home = () => {
                     brands.map(product => <BrandCart key={product.id} product={product}></BrandCart>)
                 }
             </div>
+            <MemberShip></MemberShip>
             <ContactUs></ContactUs>
         </div>
     );
