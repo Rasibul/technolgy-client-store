@@ -3,15 +3,30 @@ const AddProduct = () => {
     const handelFromItem = e => {
         e.preventDefault()
         const form = e.target
-        const name = form.name.value
-        const quantity = form.quantity.value
-        const supplier = form.supplier.value
-        const taste = form.taste.value
-        const catagorey = form.catagorey.value
-        const details = form.details.value
+        const name = form.name.value.toLowerCase()
+        const brand = form.brand.value.toLowerCase()
+        const type = form.type.value
+        const ratting = form.ratting.value
+        const description = form.description.value
+        const price = form.price.value
         const photo = form.photo.value
-        const newCoffee = { name, quantity, supplier, taste, catagorey, details, photo }
-        console.log(newCoffee)
+        const newProduct = { name, brand, type, ratting, description, price, photo }
+        console.log(newProduct)
+
+        fetch('http://localhost:5000/products', {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(newProduct)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if(data.insertedId){
+                  alert("product add")
+                }
+            })
     }
     return (
         <div className="bg-[#F4F3F0] p-10">
@@ -32,7 +47,7 @@ const AddProduct = () => {
                             <span className="label-text">Brand Name</span>
                         </label>
                         <label className="input-group">
-                            <input type="text" name="quantity" placeholder="Brand Name" className="input input-bordered w-full" />
+                            <input type="text" name="brand" placeholder="Brand Name" className="input input-bordered w-full" />
                         </label>
                     </div>
                 </div>
@@ -43,7 +58,7 @@ const AddProduct = () => {
                             <span className="label-text">Product Type</span>
                         </label>
                         <label className="input-group">
-                            <input type="text" name="supplier" placeholder="Product Type" className="input input-bordered w-full" />
+                            <input type="text" name="type" placeholder="Product Type" className="input input-bordered w-full" />
                         </label>
                     </div>
                     <div className="form-control w-1/2">
@@ -51,7 +66,7 @@ const AddProduct = () => {
                             <span className="label-text">Price</span>
                         </label>
                         <label className="input-group">
-                            <input type="text" name="taste" placeholder="Price" className="input input-bordered w-full" />
+                            <input type="text" name="price" placeholder="Price" className="input input-bordered w-full" />
                         </label>
                     </div>
                 </div>
@@ -62,7 +77,7 @@ const AddProduct = () => {
                             <span className="label-text">Short Description</span>
                         </label>
                         <label className="input-group">
-                            <input type="text" name="catagorey" placeholder="Short Description" className="input input-bordered w-full" />
+                            <input type="text" name="description" placeholder="Short Description" className="input input-bordered w-full" />
                         </label>
                     </div>
                     <div className="form-control w-1/2">
@@ -70,7 +85,7 @@ const AddProduct = () => {
                             <span className="label-text">Ratting</span>
                         </label>
                         <label className="input-group">
-                            <input type="text" name="details" placeholder="Ratting" className="input input-bordered w-full" />
+                            <input type="ratting" name="ratting" placeholder="Ratting" className="input input-bordered w-full" />
                         </label>
                     </div>
                 </div>
