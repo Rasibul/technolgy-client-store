@@ -8,11 +8,29 @@ const Provider = ({ children }) => {
         setProducts(p)
         return
     }
-    const provideItems = { products, handelDetails }
-    console.log(products)
+
+    const handeToAddCart = (p) => {
+
+        fetch('http://localhost:5000/myCart', {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(p)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.insertedId) {
+                    alert("add to cart")
+                }
+            })
+    }
+    const provideItems = { products, handelDetails, handeToAddCart }
+    // console.log(products)
 
     return (
-        <ContextApi.Provider value={provideItems }>
+        <ContextApi.Provider value={provideItems}>
             {children}
         </ContextApi.Provider>
     );

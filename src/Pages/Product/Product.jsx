@@ -11,7 +11,7 @@ const Product = () => {
     handelDetails(p)
    }
     return (
-        <div className="grid gap-5 items-center justify-center sm:grid-cols-2 lg:gird-cols-4 w-fit mx-auto px-2 py-10">
+        <div className="grid gap-5 items-center justify-center sm:grid-cols-2 lg:gird-cols-4 w-fit mx-auto  py-10">
             {
                 allProducts.map(products => {
                     const { _id, name, brand, type, ratting, price, photo } = products

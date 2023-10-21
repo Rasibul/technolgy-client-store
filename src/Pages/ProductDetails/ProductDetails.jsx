@@ -1,9 +1,10 @@
 import { useContext } from "react";
 import { ContextApi } from "../../Provider/Provider";
+import { Link } from "react-router-dom";
 
 
 const ProductDetails = () => {
-    const { products } = useContext(ContextApi)
+    const { products, handeToAddCart } = useContext(ContextApi)
     return (
         <div>
             <div className="container px-5 py-24 mx-auto" >
@@ -15,13 +16,15 @@ const ProductDetails = () => {
                         <p className="leading-relaxed text-justify">{products.description}</p>
                         <div className="flex flex-col sm:flex-row gap-2 justify-between mt-4">
                             <span className="title-font font-medium text-2xl text-gray-900">Price:${products.price}</span>
-                            <button className="btn btn-outline btn-primary">Add To Cart</button>
+                            <Link to = '/myCart'>
+                                <button onClick={()=> handeToAddCart(products)} className="btn btn-outline btn-primary">Add To Cart</button>
+                            </Link>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
     );
 };
 
