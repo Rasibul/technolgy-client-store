@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import Swal from "sweetalert2";
 
 export const ContextApi = createContext(null)
 
@@ -22,7 +23,12 @@ const Provider = ({ children }) => {
             .then(data => {
                 console.log(data)
                 if (data.insertedId) {
-                    alert("add to cart")
+                    Swal.fire({
+                        title: 'success!',
+                        text: 'Add To Cart Suceesfuly',
+                        icon: 'success',
+                        confirmButtonText: 'Ok'
+                      })
                 }
             })
     }

@@ -9,12 +9,13 @@ import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Product from "../Pages/Product/Product";
 import ProductDetails from "../Pages/ProductDetails/ProductDetails";
+import UpdateProduct from "../Pages/UppdateProduct/UpdateProduct";
 
 const routes = createBrowserRouter([
     {
         path: '/',
         element: <MainLayOut></MainLayOut>,
-        errorElement:<ErrorPage></ErrorPage>,
+        errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
                 path: '/home',
@@ -22,9 +23,9 @@ const routes = createBrowserRouter([
                 loader: () => fetch('/brand.json')
             },
             {
-                path:'/:name',
+                path: '/:name',
                 element: <Product></Product>,
-                loader:({params}) => fetch(`http://localhost:5000/products/${params.name}`)
+                loader: () => fetch(`http://localhost:5000/products`)
             },
             {
                 path: '/addProduct',
@@ -33,14 +34,21 @@ const routes = createBrowserRouter([
                 </PrivateRoute>
             },
             {
-                path:'/details',
-                element:<ProductDetails></ProductDetails>
-                
+                path:'/updateProducts/:id',
+                element:<UpdateProduct></UpdateProduct>,
+                loader:({ params }) => fetch(`http://localhost:5000/products/${params.id}`)
+            },
+            {
+                path: '/details',
+                element: <PrivateRoute>
+                    <ProductDetails></ProductDetails>
+                </PrivateRoute>
+
             },
             {
                 path: '/myCart',
                 element: <MyCart></MyCart>,
-                loader:() => fetch("http://localhost:5000/myCart")
+                loader: () => fetch("http://localhost:5000/myCart")
             },
             {
                 path: '/login',
