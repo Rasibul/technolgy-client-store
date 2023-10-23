@@ -1,10 +1,30 @@
-import { useContext } from "react";
-import { ContextApi } from "../../Provider/Provider";
-import { Link } from "react-router-dom";
+import {  useLoaderData } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const ProductDetails = () => {
-    const { products, handeToAddCart } = useContext(ContextApi)
+    const products = useLoaderData()
+    const handeToAddCart = (p) => {
+
+        fetch('https://technology-store-server.vercel.app/myCart', {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(p)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.insertedId) {
+                    Swal.fire({
+                        title: 'success!',
+                        text: 'Add To Cart Suceesfuly',
+                        icon: 'success',
+                        confirmButtonText: 'Ok'
+                    })
+                }
+            })
+    }
     return (
         <div>
             <div className="container px-5 py-24 mx-auto" >
@@ -16,9 +36,9 @@ const ProductDetails = () => {
                         <p className="leading-relaxed text-justify">{products.description}</p>
                         <div className="flex flex-col sm:flex-row gap-2 justify-between mt-4">
                             <span className="title-font font-medium text-2xl text-gray-900">Price:${products.price}</span>
-                            <Link to = '/myCart'>
-                                <button onClick={()=> handeToAddCart(products)} className="btn btn-outline btn-primary">Add To Cart</button>
-                            </Link>
+                         
+                                <button onClick={() => handeToAddCart(products)} className="btn btn-outline btn-primary">Add To Cart</button>
+                            
                         </div>
                     </div>
                 </div>

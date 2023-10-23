@@ -18,6 +18,11 @@ const routes = createBrowserRouter([
         errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
+                path: '/',
+                element: <Home></Home>,
+                loader: () => fetch('/brand.json')
+            },
+            {
                 path: '/home',
                 element: <Home></Home>,
                 loader: () => fetch('/brand.json')
@@ -25,7 +30,7 @@ const routes = createBrowserRouter([
             {
                 path: '/:name',
                 element: <Product></Product>,
-                loader: () => fetch(`http://localhost:5000/products`)
+                loader: () => fetch(`https://technology-store-server.vercel.app/products`)
             },
             {
                 path: '/addProduct',
@@ -34,21 +39,27 @@ const routes = createBrowserRouter([
                 </PrivateRoute>
             },
             {
-                path:'/updateProducts/:id',
-                element:<UpdateProduct></UpdateProduct>,
-                loader:({ params }) => fetch(`http://localhost:5000/products/${params.id}`)
+                path: '/updateProducts/:id',
+                element: <PrivateRoute>
+                    <UpdateProduct></UpdateProduct>
+                </PrivateRoute>,
+                loader: ({ params }) => fetch(`https://technology-store-server.vercel.app/products/${params.id}`)
             },
             {
-                path: '/details',
+                path: '/details/:id',
                 element: <PrivateRoute>
                     <ProductDetails></ProductDetails>
-                </PrivateRoute>
+                </PrivateRoute>,
+                loader: ({ params }) => fetch(`https://technology-store-server.vercel.app/products/${params.id}`)
+
 
             },
             {
                 path: '/myCart',
-                element: <MyCart></MyCart>,
-                loader: () => fetch("http://localhost:5000/myCart")
+                element: <PrivateRoute>
+                    <MyCart></MyCart>
+                </PrivateRoute>,
+                loader: () => fetch("https://technology-store-server.vercel.app/myCart")
             },
             {
                 path: '/login',

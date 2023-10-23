@@ -1,10 +1,10 @@
 import { useLoaderData } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const UpdateProduct = () => {
     const product = useLoaderData()
     const { _id, name, brand, type,description, ratting, price, photo } = product
-    console.log(_id)
     const handelUpdateProduct = e => {
         e.preventDefault()
         const form = e.target
@@ -17,7 +17,7 @@ const UpdateProduct = () => {
         const updatedProduct = { name, brand, type, ratting, description, price, photo }
         // console.log(newProduct)
 
-        fetch(`http://localhost:5000/products/${_id}`, {
+        fetch(`https://technology-store-server.vercel.app/products/${_id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json"
@@ -26,9 +26,13 @@ const UpdateProduct = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
-                if(data.insertedId){
-                  alert("product updaet")
+                if(data.modifiedCount > 0){
+                    Swal.fire({
+                        title: 'success!',
+                        text: 'Product Updated Sucessfully',
+                        icon: 'success',
+                        confirmButtonText: 'Ok'
+                      })
                 }
             })
     }

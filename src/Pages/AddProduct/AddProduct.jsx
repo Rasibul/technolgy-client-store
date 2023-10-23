@@ -13,7 +13,7 @@ const AddProduct = () => {
         const newProduct = { name, brand, type, ratting, description, price, photo }
         // console.log(newProduct)
 
-        fetch('http://localhost:5000/products', {
+        fetch('https://technology-store-server.vercel.app/products', {
             method: "POST",
             headers: {
                 "content-type": "application/json"
@@ -22,7 +22,6 @@ const AddProduct = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 if(data.insertedId){
                     Swal.fire({
                         title: 'success!',
